@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	id="WebApp_ID" version="2.4">
+
+    <javaee:display-name>confianca</javaee:display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>Confianca</servlet-name>
+		<servlet-class>com.tetrasoft.common.Controller</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ImagemServlet</servlet-name>
+		<servlet-class>com.tetrasoft.web.common.ImagemServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AssinaturaServlet</servlet-name>
+		<servlet-class>com.tetrasoft.web.common.AssinaturaServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ajaxUpload</servlet-name>
+		<servlet-class>com.intranet.web.ajax.AjaxUploadServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>externalAjaxUpload</servlet-name>
+		<servlet-class>com.tetrasoft.web.ajax.AjaxUploadServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ajaxRequestServlet</servlet-name>
+		<servlet-class>com.tetrasoft.web.ajax.AjaxRequestServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ajaxServlet</servlet-name>
+		<servlet-class>com.intranet.web.ajax.AjaxServlet</servlet-class>
+	</servlet>
+
+	<!-- GOOGLE CALENDAR -->
+	<servlet>
+		<servlet-name>CalendarSyncServlet</servlet-name>
+		<servlet-class>com.tetrasoft.web.google.CalendarSyncServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CalendarSyncServlet</servlet-name>
+		<url-pattern>/calendar</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>OAuthCallbackServlet</servlet-name>
+		<servlet-class>com.tetrasoft.web.google.OAuthCallbackServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OAuthCallbackServlet</servlet-name>
+		<url-pattern>/oauth2callback</url-pattern>
+	</servlet-mapping>
+	<!-- GOOGLE CALENDAR -->
+
+	<servlet-mapping>
+		<servlet-name>Confianca</servlet-name>
+		<url-pattern>/web</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ImagemServlet</servlet-name>
+		<url-pattern>/image</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AssinaturaServlet</servlet-name>
+		<url-pattern>/sign</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ajaxUpload</servlet-name>
+		<url-pattern>/ajaxUpload</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ajaxServlet</servlet-name>
+		<url-pattern>/busca</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>externalAjaxUpload</servlet-name>
+		<url-pattern>/externalAjaxUpload</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ajaxRequestServlet</servlet-name>
+		<url-pattern>/ajaxRequest</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>180</session-timeout>
+	</session-config>
+	<mime-mapping>
+		<extension>css</extension>
+		<mime-type>text/css</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>wsdl</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xsd</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+</web-app>

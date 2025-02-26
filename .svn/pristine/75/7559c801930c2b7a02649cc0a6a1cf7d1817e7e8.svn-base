@@ -1,0 +1,24 @@
+package com.tetrasoft.app;
+
+
+public class AllgendaController extends Thread {
+//	private static final String EMAIL_ADMIN = "renato.filipov@gmail.com";
+
+	static {
+		System.out.println("Welcome to AllgendaController 1.0");
+		System.out.println("============================================");
+		System.out.println("total memory:" + Runtime.getRuntime().totalMemory() + " bytes");
+		System.out.println("============================================");
+	}
+
+	public static void main(String[] args) {
+		AllgendaController obj = new AllgendaController();
+		obj.start();
+	}
+
+	public AllgendaController() {
+	}
+
+	public void run() {
+	}
+}	

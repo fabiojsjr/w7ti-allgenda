@@ -1,0 +1,12 @@
+package com.tetrasoft.common.fila;
+
+/**
+ * @author davi.mesquita	davimesquita@gmail.com
+ */
+public abstract class InvokeDAO<T> extends ObjectDAO<T> implements Runnable {
+
+	public InvokeDAO(T value) {
+		super(value);
+	}
+	
+}

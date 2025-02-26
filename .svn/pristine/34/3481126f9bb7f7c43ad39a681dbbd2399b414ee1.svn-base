@@ -1,0 +1,202 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.Map.Entry"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.tetrasoft.data.usuario.LogEntity"%>
+<%@page import="java.text.SimpleDateFormat"%>
+
+<link rel="stylesheet" href="css/responsive-tables.css">
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/responsive-tables.js"></script>
+
+<style>
+	body > div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog-buttons.ui-draggable > div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix{
+		background-color: #71B8EE;
+	}
+	#adminLog > tbody > tr:hover{
+		background-color: #DDDDFF;
+	}
+</style>
+
+<%@ include file="logado.jsp" %>
+<%@ include file="idioma.jsp" %>
+<%@ include file="methods.jsp" %>
+
+<%
+	String filtroIdCampo = returnNotNull(request.getParameter("id")).toString();		
+%>
+
+<%
+	int idFunc = 420; 
+	if (usuarioLogado == null || usuarioLogado.semPermissaoAcesso(idFunc) ) { %> 
+		<script type="text/javascript">location.href = "painel.jsp";</script>
+<%	
+		return;
+	}
+	
+	boolean master = false;
+	if( !usuarioLogado.semPermissaoAcesso(idFunc, "excluir") ) {
+		master = true;
+	}
+	
+	if( !filtroIdCampo.equals("") ) {
+		master = false;
+	}
+	
+	//master = false;
+	//usuarioLogado.setIdUsuario(2l);
+	
+	String msg = request.getParameter("msg");
+	
+	try {
+		new LogEntity( LogEntity.TIPO_SITE, usuarioLogado.getIdUsuario(), usuarioLogado.getTableName(), usuarioLogado.get_IDFieldName(), request.getRemoteAddr(), request.getLocalName(), 0l, "Log");
+		
+		String filtroIdUsuario 		= returnNotNull(request.getParameter("filtroIdUsuario")).toString();		
+		String filtroNome			= returnNotNull(request.getParameter("filtroNome")).toString();		
+		String filtroObs			= returnNotNull(request.getParameter("filtroObs")).toString();		
+		String filtroDataInicial 	= returnNotNull(request.getParameter("filtroDataInicio")).toString();
+		String filtroDataFinal	 	= returnNotNull(request.getParameter("filtroDataFinal")).toString();
+		String aux					= returnNotNull(request.getParameter("pagina")).toString();
+		int pagina = 		(aux == null || aux.equals("") ? 1 : Integer.valueOf(aux));
+		
+		if( !master ) {
+			filtroIdUsuario = usuarioLogado.getIdUsuario().toString();
+		}
+%>
+		
+<div class="contentTable">
+	<div class="clear20"></div>
+	
+	<div>
+		<div class="inline">
+			<div><%= p.get("FILTRO") %></div>
+			<input type="text" class="filtroadminLogText" id="filtroObs" name="filtroObs" placeHolder="<%= p.get("FILTRO") %>" value="<%= filtroObs %>" />
+		</div>
+
+		<div class="inline" <%= master ? "" : "style='display:none'" %>>
+			<div>Login</div>
+			<input type="text" class="filtroadminLogText" id="filtroNome" name="filtroNome" placeHolder="<%= p.get("NOME") %>" value="<%= filtroNome %>" />
+		</div>
+		
+		<div class="inline" style="display:none">
+			<div>ID <%= p.get("USUARIO") %></div>
+			<input type="text" class="filtroadminLogText" id="filtroIdUsuario" name="filtroIdUsuario" placeHolder="ID <%= p.get("USUARIO") %>" value="<%= filtroIdUsuario %>" />
+		</div>
+		
+		<div class="inline">
+			<div><%= p.get("DATA_INICIAL") %></div>	
+			<input name="filtroDataInicio" id="from" type="text"  value="<%=filtroDataInicial.equals("") ? "" : usuarioLogado.DATE_FORMAT1_BR.format(new SimpleDateFormat("dd/MM/yyyy").parse(filtroDataInicial))%>" class="filtroadminLogChange datepicker" />
+		</div>
+		
+		<div class="inline">
+			<div><%= p.get("DATA_FINAL") %></div>	
+			<input  name="filtroDataFinal" id="to" type="text" value="<%= filtroDataFinal.equals("") ? "" : usuarioLogado.DATE_FORMAT1_BR.format(new SimpleDateFormat("dd/MM/yyyy").parse(filtroDataFinal)) %>" class="filtroadminLogChange datepicker" />
+		</div>
+		
+		<script> 
+			$(".filtroadminLogText").keyup(function(e){
+ 				adminLogTable.fnDraw();
+			});
+			
+			$(".filtroadminLogChange").change(function(e){
+				adminLogTable.fnDraw();
+			});
+		</script>
+	</div>
+		
+	<div>&nbsp;</div>
+	<!-- <h4 class="widgettitle">&nbsp;</h4> -->
+	<table class="table table-bordered responsive" id="adminLog">
+        <colgroup>
+            <col class="con0" style="width: 15%;" />
+            <col class="con1" style="width: 15%;" />
+            <col class="con0" style="width: 15%;" />
+            <col class="con1" style="width: 15%;" />
+            <col class="con0" style="width: 40%;" />
+        </colgroup>
+		<thead>
+			<tr>
+				<th class="head0 headerSortDown sortable"><%=p.get("DATA") %></th>
+				<th class="head0 headerSortDown sortable"><%=p.get("USUARIO") %></th>
+				<th class="head1 headerSortDown sortable"><%=p.get("TABELA") %></th>
+				<th class="head0 headerSortDown sortable">IP</th>
+				<th class="head0 headerSortDown sortable"><%=p.get("ACOES") %></th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>			
+</div>
+
+<div class="clear20"></div>
+
+<script>
+var adminLogTable;
+$(document).ready(function(){
+	activateDatePickerID($("#from"), 'EN');
+	activateDatePickerID($("#to"), 'EN');
+	
+	var aoColumns = [];
+	$("#adminLog thead tr th").each(function(){
+		if($(this).hasClass("nosortable")){
+			aoColumns.push( { "bSortable": false } );
+		}else{
+			aoColumns.push( null );
+		}
+	});
+	
+	adminLogTable = $('#adminLog').dataTable({
+	    "sPaginationType": "full_numbers",
+	    "sSortAsc": "sorting_asc",
+	    "sSortDesc": "sorting_desc",
+	    "sSortable": "sortable",
+	 	"bProcessing": true,
+	    "bServerSide": true,
+	    "sAjaxSource": "table/logTable.jsp",
+	    "bFilter": false,
+	    "aoColumns": aoColumns,
+	    "fnCreatedCell": function (nTd, sData, oData, i) {
+			if(i == '2'){
+				$(nTd).attr("id","1211");
+			}
+      	},	
+	    "fnServerParams": function ( aoData ) {
+	 	 		aoData.push( { "name": "filtroDataInicio", "value": $("input[name=filtroDataInicio]").val() } );
+	 	 		aoData.push( { "name": "filtroDataFinal", "value": $("input[name=filtroDataFinal]").val() } );
+	 	 		aoData.push( { "name": "filtroObs", "value": $("#filtroObs").val() } );
+	 	 		aoData.push( { "name": "filtroNome", "value": $("#filtroNome").val() } );
+	 	 		aoData.push( { "name": "filtroIdUsuario", "value": $("#filtroIdUsuario").val() } );
+	 	 		aoData.push( { "name": "filtroIdCampo", "value": "<%= filtroIdCampo %>" } );
+	     },
+	       "fnDrawCallback" : function() {
+	     		$(".grouped_elements").fancybox({
+	     			onClosed: function(){
+	     				adminLogTable.fnDraw();
+	     			},
+					titleShow: false,
+					transitionIn : 'elastic',
+					transitionOut : 'elastic',
+					autoDimensions: true,
+					overlayShow : true,
+					autoScale: true,
+					easingIn : 'easeOutBack',
+					easingOut : 'easeInBack',
+					scrolling: 'no'
+	     		});
+	    	},
+	    	<%@ include file="languageTable.jsp" %>
+	});
+	
+	$("input[name=datePickerInput]").keyup(function(e){	
+		formatoData(this, e);
+	});
+});
+
+</script>
+
+<div id="erro"></div>
+<%
+	} catch( Exception e ) {
+		e.printStackTrace();
+	} finally {
+	}
+%>

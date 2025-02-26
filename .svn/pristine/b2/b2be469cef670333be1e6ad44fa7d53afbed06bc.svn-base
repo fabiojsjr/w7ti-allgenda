@@ -1,0 +1,38 @@
+package com.intranet.util;
+
+import com.tetrasoft.common.data.BasePersistentEntity;
+
+public class ValidateUtils {
+	
+	private Enum<?> tipo;
+	private BasePersistentEntity tipoInstancia;
+	private Object value;
+	private String fieldName;
+	private Long logado;
+	
+	public ValidateUtils(ValidateType tipo, BasePersistentEntity tipoInstancia, Object value, String fieldName){
+		this.tipo = tipo;
+		this.tipoInstancia = tipoInstancia;
+		this.value = value;
+		this.fieldName = fieldName;
+	}
+	
+	public ValidateUtils(ValidateType tipo, BasePersistentEntity tipoInstancia, Object value, String fieldName,Long logado){
+		this.tipo = tipo;
+		this.tipoInstancia = tipoInstancia;
+		this.value = value;
+		this.fieldName = fieldName;
+		this.logado = logado;
+	}
+	
+	public boolean validate() throws Exception{
+		
+		if(tipo.equals(ValidateType.cpf_cnpj)){
+			BasePersistentEntity data = tipoInstancia;
+			return data.executeQueryArray(" select "+data.getStructurePk()[0]+" from "+data.getTableName()+" where "+this.fieldName+" = '"+value.toString()+"'").size() == 0;
+		}
+		
+		return false;
+	}
+	
+}

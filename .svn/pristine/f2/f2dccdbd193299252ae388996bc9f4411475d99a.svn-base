@@ -1,0 +1,343 @@
+<%@page import="java.util.List"%>
+<%@page import="com.tetrasoft.data.finance.SalaReuniaoEntity"%>
+<%@page import="com.tetrasoft.web.finance.SalaReuniaoCommand"%>
+<%@page import="com.tetrasoft.data.usuario.PerfilAcessoEntity"%>
+<%@page import="com.tetrasoft.data.cliente.Calendario"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.GregorianCalendar"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.StringTokenizer"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="com.tetrasoft.app.sender.SenderInterface"%>
+<%@page import="com.tetrasoft.data.cliente.TaskEntity"%>
+<%@page import="com.tetrasoft.data.usuario.LogEntity"%>
+
+
+<%@ include file="logado.jsp" %> 
+<%@ include file="idioma.jsp" %> 
+<%@ include file="methods.jsp" %>
+
+<script src="/allgenda/js/timepicki.js"></script>
+
+<%
+	Connection conn = null;
+
+	try {		
+		
+		conn = usuarioLogado.retrieveConnection();
+
+		TaskEntity   task   = new TaskEntity();
+		String id = request.getParameter("id");	
+		String step  = "";
+		String tipo  = request.getParameter("tipo");
+		String start = request.getParameter("start");
+		String filtroCliente = request.getParameter("filtroCliente");	
+		String idCalendario = request.getParameter("idCalendario");
+		
+		if(id != null){			
+			
+			List<TaskEntity> eventoAtual = task.get(" idTask=" + id);
+			task.setIdTask(Long.parseLong(id));
+			task.setDataHoraPrazo(eventoAtual.get(0).getDataHoraPrazo());
+			task.setIdSala(eventoAtual.get(0).getIdSala());
+			task.setDepartamento(eventoAtual.get(0).getDepartamento());
+			task.setParticipantes(eventoAtual.get(0).getParticipantes());
+			task.setDescricao(eventoAtual.get(0).getDescricao());			
+		}
+		
+		if( request.getParameter("insert") != null ) {
+			String idTask	  = request.getParameter("idTask");
+			String data		  = request.getParameter("data");
+			String hora		  = request.getParameter("hora");
+			String sala		  = request.getParameter("salas");
+			String departamento		  = request.getParameter("departamento");
+			String participantes		  = request.getParameter("participantes");
+			String descricao  = request.getParameter("descricao");			
+			
+			Calendario calendario = new Calendario();
+			calendario.save( idTask, data, hora, participantes, departamento, sala, descricao, usuarioLogado.getIdUsuario() );
+			
+			if( idTask.contains("_") ) idTask = idTask.substring( 0, idTask.indexOf("_") );
+			
+			new LogEntity( LogEntity.TIPO_SITE, usuarioLogado.getIdUsuario(), task.getTableName(), task.get_IDFieldName(), request.getRemoteAddr(), request.getLocalName(), new Long(idTask), "Ediééo de calendério (save)", conn);
+
+			out.println("<font color='red'>Event succesfully created!");
+			
+			return;
+		}
+		
+		out.println("<div id='erro'>");
+		
+		if(request.getParameter("info") != null){
+			out.println("<script>infoAlert('"+p.get("MENSAGEM")+"', $.trim('"+(p.get(request.getParameter("info")) == null ? request.getParameter("info") : p.get(request.getParameter("info")))+"'), function() {});</script>");
+		}else if(request.getParameter("warning") != null){
+			out.println("<script>warningAlert('"+p.get("MENSAGEM")+"', $.trim('"+(p.get(request.getParameter("warning")) == null ? request.getParameter("warning") : p.get(request.getParameter("warning")))+"'), function() {});</script>");
+		}
+		
+		out.println("</div>");
+	
+		try {
+			task.setIdTask( new Long(id.substring(0,13)) );
+			if( !task.getThis(conn) ) {
+				StringTokenizer st = new StringTokenizer( id, "_" );
+				id = st.nextToken();
+				step = st.nextToken();
+				
+				id = "0";
+			}
+		} catch( Exception x ) {
+			id = "0";
+			
+			Date d = null;
+			try {
+				d = new Date(start);
+			} catch( Exception e2 ){
+				GregorianCalendar cal = new GregorianCalendar();
+				cal.setTime( new Date() );
+				cal.set( GregorianCalendar.MINUTE, 0);
+				cal.add( GregorianCalendar.DATE, 1);
+				d = cal.getTime();
+			}
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.setTime(d);
+			cal.set(GregorianCalendar.HOUR_OF_DAY, 10);
+			
+			task.setDataHoraPrazo(cal.getTime());
+		}
+		
+		new LogEntity( LogEntity.TIPO_SITE, usuarioLogado.getIdUsuario(), task.getTableName(), task.get_IDFieldName(), request.getRemoteAddr(), request.getLocalName(), new Long(id), "Ediééo de calendério", conn);
+%>	
+
+	<style>
+		ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all{
+			z-index : 99999;
+		}
+		#formUpdateCadastroPersonalInfo > p:nth-child(4) > div > div{
+			left: 26%;
+		} 
+		#fancybox-outer {
+			cursor : pointer;
+		}
+		
+		.control-label {
+			width: 33%;
+		}
+		.label {
+			width: 33%;
+		}
+		
+		.stdform label{
+			width: 100px;
+		}
+	</style>
+	
+	<form action="javascript:return false;"  method="post" name="formTask" id="formTask" enctype="multipart/form-data" class="stdform" style="width: 900px !important;">
+		<script type="text/javascript">var form = document.formTask;</script>
+	
+	<div class="maincontent" >
+		<div class="row-fluid">
+		
+		<input type="hidden" name="sid" value="<%= SystemParameter.get(SenderInterface.SID, "systemProperties", "sid") %>"/>
+		<input type="hidden" name="command" value="consulta" />
+		<input type="hidden" name="action" value="marcar" />
+		<input type="hidden" name="formMode" value=""/>
+		<input type="hidden" name="chaveSite" value="<%=System.currentTimeMillis() + "" + System.currentTimeMillis()*2%>"/>
+		<input type="hidden" name="historical" value=""/>
+		<input type="hidden" name="ativo" value=""/>
+		<input type="hidden" name="idTask" value="<%= id %>_<%= step %>"/>
+		
+		<!--span4-->
+		<div class="span7" style="padding: 0px; margin: 0px; width: 100%">
+			<div class='widgetbox personal-information'>
+				<h4 class="widgettitle">Agendar reunião</h4>
+				
+				<div class='widgetcontent' id='formUpdateCadastroPersonalInfo'>
+					<p class="control-group-int">
+						<label class="control-label"><%= p.get("DATA") %>:</label>
+						<input type="text" readonly="readonly"
+						 	style="	
+						 		cursor : pointer;
+						 	 	background-color: #FFFFFF;
+						 	 	width : 30%;"
+						 	 maxlength="10"
+						 	 id="datepicker"
+						 	 name="dataTask" value="<%= task.getDataHoraPrazo() == null ? "" : task.DATE_FORMAT1.format(task.getDataHoraPrazo()).toString() %>"/>
+					</p>
+					<p class="control-group-int">
+						<label class="control-label"><%=p.get("HORA") %> :</label>
+						<input type="text"
+						 	style="
+						 		width : 30%;
+						 		id="horaTask"
+						 		name="horaTask"
+						 		value="<%= task.getDataHoraPrazo() == null ? "" : new SimpleDateFormat("hh : mm a").format(task.getDataHoraPrazo()) %>">
+					</p>
+					
+					<p class="control-group-int">
+						<label class="control-label">Salas: </label>
+						<select name="salas" style="max-width : 290px;" required>
+							<option value="">Selecione a sala</option>	
+							
+							<%								
+								SalaReuniaoEntity salaReuniao = new SalaReuniaoEntity();
+								List<SalaReuniaoEntity> listSalaReuniao = salaReuniao.get(" 1=1 ");								
+							%>
+							<% if(listSalaReuniao != null && listSalaReuniao.size() > 0){									
+								for(SalaReuniaoEntity entity : listSalaReuniao  ){
+									
+							%>
+													
+									<option value="<%= entity.getIdSalaReuniao() %>"><%= entity.getNome() %></option>
+						
+								<% } %>
+						
+							<% } %>		
+						</select>
+					</p>
+					
+					<p class="control-group-int">
+						<label class="control-label">Departamento: </label>
+						<select name="departamento" style="max-width : 290px;" required>
+							<option value="">Selecione o departamento</option>
+							<option value="Comercial">Comercial</option>
+							<option value="Tecnologia">Tecnologia</option>
+							<option value="RH">RH</option>
+							<option value="Financeiro">Financeiro</option>
+							<option value="Marketink">Marketink</option>				
+						</select>
+					</p>
+					
+					<p class="control-group-int">
+						<label class="control-label">Número de participantes: </label>
+						<input type="text" name="participantes" class="somenteNumero" value="<%= task.getParticipantes() == null ? "" : task.getParticipantes() %>" style="max-width : 290px;"/>		
+					</p>
+					<p class="control-group-int">
+						<label class="control-label">Descrição: </label>
+						<textarea type="text" name="descricao" style="max-width : 290px;"><%= task.getDescricao() == null ? "" : task.getDescricao() %></textarea>		
+					</p>
+					
+					
+					<p class="control-group-int" style="text-align: center">
+						<center>
+							<div id="divUpdateInt">
+								<button class="btn btn-primary" id="updateTaskButton"><%= id.equals("0") ? p.get("SALVAR") : p.get("ATUALIZAR") %></button>
+							</div>
+						</center>
+					</p>
+				</div>
+			</div>
+		</div><!--span8-->
+	</div><!--row-fluid-->
+	
+</div>
+	
+<script>
+
+
+	$(document).ready(function() {
+		
+		$("[name='departamento']").find("option[value='" + '<%= task.getDepartamento() %>' + "']").attr("selected","selected");
+		$("[name='salas']").find("option[value='" + '<%= task.getIdSala() %>' + "']").attr("selected","selected");
+		
+		
+		$(".somenteNumero").keyup(function(e){			
+			if(e.target.value.match(/\D/g)){
+				var valor = e.target.value;
+				var ultimoCaracter = valor.substring(0, valor.length);
+				e.target.value = e.target.value.substring(0,valor.length -1);			
+			}			
+			
+		});
+		
+		setTimeout(function(){
+
+			var hh = "10";
+			var mm = "00";
+			var ap = "AM";
+			
+			<% 	Date data = task.getDataHoraPrazo();
+				if( !id.equals("0") ) { %>
+					hh = '<%= new SimpleDateFormat("hh").format(data) %>';
+					mm = '<%= new SimpleDateFormat("mm").format(data) %>';
+					ap = '<%= new SimpleDateFormat("a").format(data) %>';
+			<% 	}  %>
+			
+			$('#horaTask').timepicki({start_time: [hh, mm, ap], increase_direction:'up'})
+		},400);
+	});
+
+	jQuery('#fancybox-outer').css('cursor','default');
+	
+	activateDatePickerID($("#datepicker"), 'EN');
+	$("#datepicker").mask("99/99/9999");
+
+	
+	$("#updateTaskButton").click(function(e){
+		e.preventDefault();
+		var erro = 	!$(form).valid();
+		if (erro) return;
+
+		var query = "calendarioEdit.jsp?insert=true&idTask=" + form.idTask.value + "&data=" + form.dataTask.value + "&hora=" + form.horaTask.value + "&participantes=" + form.participantes.value + "&departamento=" + form.departamento.value + "&salas=" + form.salas.value + "&descricao=" + form.descricao.value + "&idCalendario=<%= idCalendario %>";
+		
+		ChamaPaginaArray(query, "divUpdateInt");
+		calendario(1, <%= idCalendario == null ? "0" : idCalendario %>);
+	});
+
+	$(document.formTask).validate({
+		rules : {
+			dataTask : "required",
+			horaTask : "required",			
+			salas: "required",			
+			participantes: "required",
+			descricao: "required"
+		},
+		messages :{
+			dataTask : "Preencha a data",
+			horaTask : "Preencha o horário",
+			salas : "Escolha a sala",
+			participantes : "Preencha o Número de participantes",
+			descricao: "Preencha a descrição"
+		},highlight : function(label) {
+			$(label).closest('.control-group-int').removeClass('success');
+			$(label).closest('.control-group-int').addClass('error');
+		},
+		success : function(label) {
+			$(label).addClass('valid').closest('.control-group-int').addClass('success');
+		}
+	});
+	
+	window.onresize = function() {
+		$("#formTask").css("width", $("html").width()/3); // 33% width
+	}
+	$("#formTask").css("width", $("html").width()/3); // 33% width
+	
+	function changeTipoAlerta(tipo, idCliente) {
+		if( tipo == "1" ) {
+			document.getElementById("descricaoID").style.display    = "block";
+			document.getElementById("accordionQuote").style.display = "block";
+			document.getElementById("adicionarQuote").style.display = "block";
+			document.getElementById("mensagemQuote").style.display  = "none";
+		} else {
+			document.getElementById("descricaoID").style.display    = "none";
+			document.getElementById("accordionQuote").style.display = "none";
+			document.getElementById("adicionarQuote").style.display = "none";
+			document.getElementById("mensagemQuote").style.display  = "block";
+			
+			document.getElementById("frameMessage").src = "/allgenda/painel.jsp?redirectNoFancy=mensagemEnviar.jsp?idDestinatario=" + idCliente + "-schedule&clean=true"; 			
+
+		}
+	}
+</script>
+
+<div class="clear"></div>
+</form>
+
+
+<%	
+	} catch( Exception ee ) {
+		ee.printStackTrace();
+	} finally {
+		conn.close();
+	}
+%>
+

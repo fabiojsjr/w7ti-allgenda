@@ -1,0 +1,184 @@
+<%@page import="com.tetrasoft.data.usuario.FuncionalidadeEntity"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="com.tetrasoft.data.usuario.PerfilAcessoEntity"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="com.tetrasoft.app.sender.SenderInterface"%>
+<%@page import="javax.swing.text.MaskFormatter"%>
+<%@page import="com.tetrasoft.data.usuario.LogEntity"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+
+<%@ include file="logadoForce.jsp" %> 
+<%@ include file="idioma.jsp" %> 
+<%@ include file="methods.jsp" %>
+
+<%
+	Connection conn = null;
+	PerfilAcessoEntity perfil = new PerfilAcessoEntity();
+	
+	try {
+		conn = usuarioLogado.retrieveConnection();
+		
+		out.println("<div id='erro'>");
+		if(request.getParameter("info") != null){
+			out.println("<script>infoAlert('"+p.get("MENSAGEM")+"', $.trim('"+(p.get(request.getParameter("info")) == null ? request.getParameter("info") : p.get(request.getParameter("info")))+"'), function() {});</script>");
+		}else if(request.getParameter("warning") != null){
+			out.println("<script>warningAlert('"+p.get("MENSAGEM")+"', $.trim('"+(p.get(request.getParameter("warning")) == null ? request.getParameter("warning") : p.get(request.getParameter("warning")))+"'), function() {});</script>");
+		}
+		out.println("</div>");
+	
+		if (usuarioLogado == null ) {
+			out.println("<script type='text/javascript'>location.href = 'index.jsp';</script>");
+			return;
+		}
+
+		boolean novo = false;
+		UsuarioEntity u = new UsuarioEntity();
+		ArrayList a = null;
+
+		PerfilAcessoEntity perfilToChange = new PerfilAcessoEntity();
+		try{
+			if( request.getParameter("idPerfil").equals("0") ) {
+				novo = true;
+			} else {
+				if(!perfilToChange.getThis("idPerfilAcesso = "+request.getParameter("idPerfil"), conn)){
+					throw new Exception();
+				}
+			}
+
+		}catch(Exception e){
+			out.println("<script>$.fancybox.close();</script>");
+			return;
+		}
+		
+		new LogEntity( LogEntity.TIPO_SITE, usuarioLogado.getIdUsuario(), perfil.getTableName(), perfil.get_IDFieldName(), request.getRemoteAddr(), request.getLocalName(), perfilToChange.getIdPerfilAcesso(), "Edição de perfil de acesso", conn);
+%>
+	
+<form action="javascript:return false;" method="post" name="formAdminUsuarioDadosPessoais" id="formAdminUsuarioDadosPessoais" enctype="multipart/form-data" class="stdform">
+	<input type="hidden" name="sid" value="<%= SystemParameter.get(SenderInterface.SID, "systemProperties", "sid") %>"/>
+	<input type="hidden" name="id" value="<%= perfilToChange.getIdPerfilAcesso() %>" />
+	<input type="hidden" name="command" value="" />
+	<input type="hidden" name="action" value="" />
+	<input type="hidden" name="formMode" value=""/>
+	<input type="hidden" name="chaveSite" value="<%=System.currentTimeMillis() + "" + System.currentTimeMillis()*2%>"/>
+	<input type="hidden" name="idPerfilAdmin" value="<%=perfilToChange.getIdPerfilAcesso() %>"/>
+	
+	<script type="text/javascript">var form = document.formAdminUsuarioDadosPessoais;</script>
+	
+	<h4 class="widgettitle"> <b><%=p.get("ADMINISTRACAO") %> - <%= p.get("PERFIL_ACESSO") %></b></h4>
+	<div class="maincontent">
+		<div class="maincontentinner">
+			<div class="row-fluid">
+				<div class="span5 profile-left">
+				
+					<div class="widgetbox login-information">
+						<h4 class="widgettitle"><%=p.get("INFORMACOES_LOGIN") %></h4>
+						<div class="widgetcontent" id="formUpdateCadastroLoginInfo">
+							<p>
+								<label class="control-label labelNome"><%=p.get("NOME") %>:</label>
+								<%	if( novo ) { %>
+									<input type="text" name="nome"/>
+								<%	} else { %>
+										<b style='line-height:32px'><%=perfilToChange.getNome() %></b>
+								<%	}  %>
+							</p>
+							
+							<%	if( !novo ) { %>
+									<p>
+										<label style="width: auto!important" class="control-label"><%=p.get("USUARIOS") %>:</label>
+										
+										<div>
+											<select class="selectAdmin">
+											<%
+												a = u.getArray("idPerfil = " + perfilToChange.getIdPerfilAcesso(), conn);
+												for( int i = 0; i < a.size(); i++ ) {
+													u = (UsuarioEntity)a.get(i);
+													%>
+													<option><%= u.getNome()%></option>
+											<% 
+												}
+											%>
+											</select>
+										</div>
+									</p>
+							<%	} %>
+						</div>
+					</div>	
+						
+					<p>
+						<button class="btn btn-primary" id="updateProfileButton"><%= p.get("SALVAR") %></button>
+					</p>
+										
+				</div><!--span4-->
+				
+				<div class="span7">
+					<div class="widgetbox personal-information">
+						<h4 class="widgettitle"><%= p.get("Funcionalidades") %></h4>
+						<div class="widgetcontent" id="formUpdateCadastroPersonalInfo">
+							<p class="control-group" style="margin-left: 30px">
+								<b>
+									<span title="Incluir"   style="cursor: pointer;">I</span> &nbsp;&nbsp; 
+									<span title="Alterar"   style="cursor: pointer;">A</span> &nbsp; &nbsp;
+									<span title="Excluir"   style="cursor: pointer;">E</span> &nbsp; &nbsp;
+									<span title="Consultar" style="cursor: pointer;">C</span> &nbsp;
+									Funcionalidade
+								</b>
+								
+								<hr size="1" />
+							</p>
+					
+							<%
+								FuncionalidadeEntity f = new FuncionalidadeEntity();
+								a = f.getArray("oculto=0 ORDER BY idFuncionalidade ", conn);
+								for( int i = 0; i < a.size(); i++ ) {
+									f = (FuncionalidadeEntity)a.get(i);
+							%>
+									<p class="control-group" style="margin-left: 30px">
+										<input type="checkbox" name="check_I_<%= f.getIdFuncionalidade() %>" <%= perfilToChange.semPermissaoAcesso(f.getIdFuncionalidade().intValue(), "incluir")   ? "" : "checked" %> title="incluir" />&nbsp;  
+										<input type="checkbox" name="check_A_<%= f.getIdFuncionalidade() %>" <%= perfilToChange.semPermissaoAcesso(f.getIdFuncionalidade().intValue(), "alterar")   ? "" : "checked" %> title="alterar" /> &nbsp; 
+										<input type="checkbox" name="check_E_<%= f.getIdFuncionalidade() %>" <%= perfilToChange.semPermissaoAcesso(f.getIdFuncionalidade().intValue(), "excluir")   ? "" : "checked" %> title="excluir" /> &nbsp; 
+										<input type="checkbox" name="check_C_<%= f.getIdFuncionalidade() %>" <%= perfilToChange.semPermissaoAcesso(f.getIdFuncionalidade().intValue(), "consultar") ? "" : "checked" %> title="consultar" /> &nbsp; 
+										<%= f.getNome("PT") %>
+									</p>
+							<%	} %>
+							
+							<div class="input-xlarge">&nbsp;</div>
+						</div>
+					</div>
+				</div><!--span8-->
+			</div><!--row-fluid-->
+		</div><!--maincontentinner-->
+	</div>
+		
+	<script>
+		$("#updateProfileButton").click(function(e){
+			savePerfilAdmin(form);
+		});
+	</script>
+<div class="clear"></div>
+
+</form>
+
+<style>
+	.selectAdmin{
+		width: 100%;
+	}
+	
+	.labelNome{
+		width: auto!important;
+	}
+</style>
+
+<%
+	} catch( Exception ex ) {
+		ex.printStackTrace();
+	} finally {
+		try {
+			conn.close();			
+		} catch(Exception ex2) {
+		}
+		
+	}
+
+%>

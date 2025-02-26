@@ -1,0 +1,23 @@
+package com.tetrasoft.common.fila;
+
+/**
+ * @author davi.mesquita	davimesquita@gmail.com
+ * @see value()
+ * @param <T> Type
+ */
+public abstract class ObjectDAO<T> {
+	private T value;
+	/**
+	 * @see value()
+	 * @param value value()
+	 */
+	public ObjectDAO(T value) {
+		this.value=value;
+	}
+	/**
+	 * @return Type
+	 */
+	public T value() {
+		return this.value;
+	}
+}

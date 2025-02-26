@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@page import="com.tetrasoft.data.finance.SalaReuniaoEntity"%>
+<%@page import="com.tetrasoft.data.usuario.LogEntity"%>
+
+<link rel="stylesheet" href="css/responsive-tables.css">
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/responsive-tables.js"></script>
+<style>
+	body > div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog-buttons.ui-draggable > div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix{
+		background-color: #71B8EE;
+	}
+	#admin > tbody > tr:hover{
+		background-color: #DDDDFF;
+	}
+</style>
+
+<%@ include file="logadoForce.jsp" %>
+<%@ include file="idioma.jsp" %>
+<%@ include file="methods.jsp" %>
+
+<%	
+	int idFunc = SalaReuniaoEntity.ID_FUNCAO;
+	if (usuarioLogado == null || usuarioLogado.semPermissaoAcesso(idFunc) ) { %> 
+		<script type="text/javascript">location.href = "painel.jsp";</script>
+<%	
+		return;
+	}
+
+	boolean master = false;
+	if( !usuarioLogado.semPermissaoAcesso(idFunc, "excluir") ) {
+		master = true;
+	}
+
+	try {
+		new LogEntity( LogEntity.TIPO_SITE, usuarioLogado.getIdUsuario(), usuarioLogado.getTableName(), usuarioLogado.get_IDFieldName(), request.getRemoteAddr(), request.getLocalName(), 0l, "Sala de reunião: lista");
+		
+					
+		String filtroNome		= returnNotNull(request.getParameter("filtroNome")).toString();
+		String aux					= returnNotNull(request.getParameter("pagina")).toString();
+		int pagina = 				(aux == null || aux.equals("") ? 1 : Integer.valueOf(aux));
+		
+%>
+
+<ul class="breadcrumbs">
+	<li><a style="color : black;" href="painel.jsp"><i class="iconfa-user"></i></a> <span class="separator"></span></li>
+	<li><%= p.get("ADMINISTRACAO") %><span class="separator"></span></li>
+	<li><b>Sala de reunião</b></li>
+</ul>
+
+<div class="pageheader" onclick="javascript:abre('miolo', 'salaReuniaoList.jsp')" style="cursor: pointer;">
+	<div class="pageicon"><span class="iconfa-flag"></span></div>
+	<div class="pagetitle">
+		<h5> &nbsp;</h5>
+		<h1>Sala de reunião</h1>
+	</div>
+</div>
+		
+<div class="contentTable">
+	<div class="clear20"></div>
+
+	<div>	
+
+		<div class="inline">
+			<!-- <div><%= p.get("DESCRICAO") %> </div> -->
+			<input type="text" id="filtroNome" class="filteradminText input-medium" name="filtroNome" placeHolder="<%= p.get("NOME") %>" value="<%= filtroNome %>"/>
+		</div>
+	
+		<%	if( !usuarioLogado.semPermissaoAcesso(idFunc, "incluir") ) { %>
+			<div class="inline">
+				<button class="btn btn-primary btn-circle grouped_elements" href="salaReuniaoEdit.jsp" style="width: 200px"><span class="iconfa-plus-sign icon-white"></span> <%= p.get("ADICIONAR") %> Sala de reunião</button>
+			</div>
+		<%	} %>
+	
+		<script> 
+			$(".filteradminText").keyup(function(){
+				adminTable.fnDraw();
+			});
+			$(".filteradminSelect").change(function(){
+				adminTable.fnDraw();
+			});
+		</script>	
+	
+	</div>
+	
+	<div>&nbsp;</div>
+	
+	<!-- <h4 class="widgettitle">&nbsp;</h4> -->
+	<table class="table table-bordered responsive" id="admin">
+        <colgroup>
+            <col class="con0" style=" width: 25%" />
+            <col class="con1" style=" width: 20%" />
+            <col class="con0" style=" width: 10%" />
+            
+        </colgroup>
+		<thead>
+			<tr>
+				<th class="head0 headerSortDown sortable">NOME</th>
+				<th class="head1 headerSortDown sortable">CAPACIDADE</th>
+				<th class="head1 headerSortDown sortable">NÙMERO</th>
+				<th class="head1 nosortable">AÇÕES</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>			
+</div>
+
+<div class="clear20"></div>
+
+<script>
+var adminTable;
+$(document).ready(function(){
+	var aoColumns = [];
+	$("#admin thead tr th").each(function(){
+		if($(this).hasClass("nosortable")){
+			aoColumns.push( { "bSortable": false } );
+		}else{
+			aoColumns.push( null );
+		}
+	});
+	
+	adminTable = $('#admin').dataTable({
+	    "sPaginationType": "full_numbers",
+	    "sSortAsc": "sorting_asc",
+	    "sSortDesc": "sorting_desc",
+	    "sSortable": "sortable",
+	 	"bProcessing": true,
+	    "bServerSide": true,
+	    "sAjaxSource": "table/salaReuniaoTable.jsp",
+	    "bFilter": false,
+	    "aoColumns": aoColumns,
+	    "fnCreatedCell": function (nTd, sData, oData, i) {
+			if(i == '2'){
+				$(nTd).attr("id","1211");
+			}
+      	},	
+	    "fnServerParams": function ( aoData ) {			
+			aoData.push( { "name": "filtroNome", "value": $("#filtroDescricao").val() } );
+	     },
+	       "fnDrawCallback" : function() {
+	     		$(".grouped_elements").fancybox({
+	     			onClosed: function(){
+	     				adminTable.fnDraw();
+	     			},
+					titleShow: false,
+					transitionIn : 'elastic',
+					transitionOut : 'elastic',
+					autoDimensions: true,
+					overlayShow : true,
+					autoScale: true,
+					easingIn : 'easeOutBack',
+					easingOut : 'easeInBack',
+					scrolling: 'no'
+	     		});
+	    	},
+	    	<%@ include file="languageTable.jsp" %>
+	});
+});
+
+</script>
+
+<%
+} catch( Exception e ) {
+	e.printStackTrace();
+} 
+%>

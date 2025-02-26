@@ -1,0 +1,195 @@
+var reqArr = new Array();
+
+function initRequest(url) {
+	if (window.XMLHttpRequest) {
+		return new XMLHttpRequest();
+	} else if (window.ActiveXObject) {
+		isIE = true;
+		return new ActiveXObject("Microsoft.XMLHTTP");
+	}
+}
+
+function carregando(obj) {
+	obj.innerHTML = "" +
+			"<table width='100%' height='100%' border='0'>" +
+			"	<tr>" +
+			"		<td align='center' valign='middle'><img alt='' src='images/loaders/loader1.gif'/></td>" +
+			"	</tr>" +
+			"</table>";
+}
+
+function ChamaPaginaArray(url, obj, funcao, showLoading) {
+	ajaxObj = new Object();
+	ajaxObj.method = "GET";
+	ajaxObj.url = url;
+	ajaxObj.retorno = obj;
+	ajaxObj.funcao = funcao;
+	ajaxObj.showLoading = showLoading;	
+	reqArr.push(ajaxObj);
+    if(reqArr.length == 1){
+		openAjax(reqArr[0]);
+	}
+}
+
+function ChamaPaginaPost(url, obj, funcao, showLoading) {
+	ajaxObj = new Object();
+	ajaxObj.method = "POST";
+	ajaxObj.url = url;
+	ajaxObj.retorno = obj;
+	ajaxObj.funcao = funcao;
+	ajaxObj.showLoading = showLoading;
+
+	reqArr.push(ajaxObj);
+    if(reqArr.length == 1){
+		openAjax(reqArr[0]);
+	}
+}
+
+function openAjax(ajaxObj) {
+	try {
+		
+		if( ajaxObj.url.indexOf("?") > 0 || ajaxObj.url.indexOf("&") > 0 ) {
+			ajaxObj.url += "&AjaxRequestUniqueId=" + new Date().getTime();
+		} else {
+			ajaxObj.url += "?AjaxRequestUniqueId=" + new Date().getTime();
+		}
+
+		xmlHttp = initRequest(ajaxObj.url);
+		xmlHttp.onreadystatechange = function(){
+		
+			objRetorno = document.getElementById(ajaxObj.retorno);
+
+			if(xmlHttp.readyState == 4){
+				try{
+					objRetorno.innerHTML = xmlHttp.responseText;
+					
+					try{
+						
+						if(ajaxObj.funcao != 'undefined') eval(ajaxObj.funcao);
+						
+					}catch(e){
+					}
+	 				reqArr.shift();
+	 				
+	 				try {
+						if( xmlHttp.responseText.indexOf("class=\"gradient") > 0 ) {
+							createGradient();
+						}
+					} catch(e) {
+					}
+					
+					if(reqArr.length > 0){
+						openAjax(reqArr[0]);
+					}
+				}catch(e){					
+					objRetorno.innerHTML = "<br/><center>Houve um erro para efetuar a requisição ao servidor. Tente novamente mais tarde.</center>";
+
+					reqArr.shift();
+		 			openAjax(reqArr[0]);
+				}
+			}else{
+				try{
+					if(ajaxObj.showLoading || ajaxObj.showLoading == undefined){
+				  		carregando(objRetorno);
+			  		}
+			  	}catch(e){
+			  	}
+		  	}
+		};
+		if(ajaxObj.method == "POST"){
+			ajaxObj.url = ajaxObj.url.replace("web?", "");
+			xmlHttp.open("POST","web",true);
+			xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+			xmlHttp.setRequestHeader("Content-length", ajaxObj.url.length);
+			xmlHttp.send(ajaxObj.url);
+		}else{
+			xmlHttp.open("GET", ajaxObj.url, true);
+			xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+			xmlHttp.send(ajaxObj.url);
+		}
+	} catch(e) {
+		
+		console.log(e);
+	}
+}
+
+function createQuerySimple(formX) {
+	return 	"web?sid=" + formX.sid.value +
+			"&command=" + formX.command.value +
+		    "&action=" + formX.action.value
+	;
+}
+
+function createQueryString(form){
+	var retorno = new String("");
+	
+	for(var i = 0; i < form.length; i++){
+		try {
+			var value = form[i].value;
+			
+			if(form[i].type != "button" && form[i].type != "submit" && form[i].type != "radio" && form[i].type != "checkbox") {
+				//value = replaceAll(value, "%", "½");
+				//value = replaceAll(value, "½", "%25");
+				//value = replaceAll(value, " ", "%20");
+				
+				//value = replaceAll(value, "&", "%26");
+				
+				retorno += form[i].name + "=" + value + "&";
+			} else if(form[i].type == "radio" || form[i].type == "checkbox") {
+				if(form[i].checked && form[i].name.indexOf('marcada') < 0 ) {
+					//value = replaceAll(value, "%", "½");
+					//value = replaceAll(value, "½", "%25");
+					//value = replaceAll(value, " ", "%20");
+
+					//value = replaceAll(value, "&", "%26");
+
+					retorno += form[i].name + "=" + value + "&";
+				}
+			}
+		} catch(e){
+		}
+	}
+	
+	return "web?" + retorno + "serializedForm=true"+"&no_cache="+new Date().getTime();
+}
+
+function createQueryStringFields(form, campos){
+   try {
+	   var retorno = new String("");
+	   for(var i = 0; i < form.length; i++){
+	   	  var nomeCampo = form[i].name;
+	   	  if( nomeCampo.indexOf("_") > 0 ) {
+	   	      nomeCampo = nomeCampo.substring(0, nomeCampo.indexOf("_")+1 );
+	   	  }
+	   	  
+	   	  if( campos.indexOf(";" + nomeCampo + ";") >= 0 ) {
+		      if(form[i].type != "button" && form[i].type != "submit" && form[i].type != "radio" && form[i].type != "checkbox"){
+		         retorno += form[i].name + "=" + form[i].value + "&";
+		      }else if(form[i].type == "radio" || form[i].type == "checkbox"){
+		         if(form[i].checked){
+		            retorno += form[i].name + "=" + form[i].value + "&";
+		         }
+		      }
+	   	  }
+	   }
+	   return "web?" + retorno + "serializedForm=true";
+	   
+	} catch(e){
+	   return createQueryString(form); 
+	}
+}
+
+function replaceQuebraLinha(campo, pattern){
+	var regex = /\n/;
+	while(campo.match(regex)){
+		campo = campo.replace(regex, pattern);
+	}
+	return campo;
+}
+function replaceQuebraLinhaInvert(campo, pattern){
+	var regex = /<br>/g;
+	while(campo.match(regex)){
+		campo = campo.replace(regex, pattern);
+	}
+	return campo;
+}

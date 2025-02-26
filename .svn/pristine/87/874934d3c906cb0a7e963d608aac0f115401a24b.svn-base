@@ -1,0 +1,723 @@
+#topo
+CONFIGURACOES=Config
+FINANCEIRO=Financeiro
+RELATORIOS=Relatórios
+GRAFICOS=Gráficos
+ADMINISTRACAO=Admin
+CLIENTES=Clientes
+CONTATO=Contato
+CONTATOS=Contatos
+AJUDA=Ajuda
+TAMANHO=Tamanho
+VIDEO=Vídeo
+LOADING=aguarde, carregando...
+
+
+PROXIMO=Próximo
+FECHAR=Fechar
+CONTRATO=Contrato
+FILTRO=Filtro
+DIREITOS=Direitos Reservados
+ENVIE_FOTO=Enviar Foto
+APAGAR=Apagar
+
+OLA=Ol&aacute;
+SAIR=Logout
+SALVAR=Salvar
+TICKETS_ABERTOS=Tickets em aberto
+TICKETS_FINALIZADOS=Tickets finalizados
+
+LOG=Log de Acessos
+LOGIN=Faça seu login
+SUPORTE=Suporte
+SENHA=Senha
+ESQUECEU_SENHA=Esqueceu sua senha?
+TABELA=Tabela
+FILIAL=Filial
+VENDEDOR=Vendedor
+IDIOMAS=Idiomas
+NACIONALIDADE=Nacionalidade
+
+TELEFONE=Telefone
+COMENTARIOS=Comentários
+ALTERNATIVA=Alternativa
+RESULTADO=Resultado
+
+COMPLETE_DADOS_PESSOAIS=Complete seus dados pessoais
+DADOS_PESSOAIS=Dados Pessoais
+DADOS_BANCARIOS=Dados Bancários
+
+FATURAS=Faturas
+HISTORICO=Histórico
+SAQUE=Saque
+TRANSFERENCIA=Transferência
+PAGAR_OUTRAS_FATURAS=Pagar outras faturas
+
+USUARIO=Usuário
+LOJA=Loja
+LOGOFF=Efetuar Logoff
+
+INICIO=Início
+EMAIL_MARKETING=Divulgação
+PAINEL_RECADO=Mensagens
+
+SENHA_MASTER=Senha Master
+LOGAR=Logar
+ESQUECI=Esqueci a 
+
+NOME=Nome
+CALCULAR=Calcular
+BUSCA=Busca
+
+DATA_PAGAMENTO=Data de Pagamento
+DATA_CADASTRO=Data do Cadastro
+PENDENTES=Pendentes
+TOTAL=Total
+VALORES=Valores
+
+CADASTRO=Cadastro
+PESSOA_FISICA=Pessoa Física
+PESSOA_JURIDICA=Pessoa Jurídica
+EMPRESA=Empresa
+INDICADO_POR=Indicado por
+ESCOLHER_LOGIN=Escolher login
+VERIFICAR_DISPONIBILIDADE=Verificar Disponibilidade
+NOME_COMPLETO=Nome Completo
+RAZAO_SOCIAL=Razão Social
+FANTASIA=Fantasia
+CPF=CPF
+CNPJ=CNPJ
+CONFIRMAR=Confirmar
+ACEITO_TERMOS=Eu concordo com os termos e condições
+ASSINAR=Assinar
+CADASTRE_SE=Cadastre-se
+CELULAR=Celular
+
+ENDERECO=Endereço
+BAIRRO=Bairro
+CEP=CEP
+ESTADO=Estado
+MUNICIPIO=Município
+COMPLEMENTO=Complemento
+
+PREENCHER=*Favor preencher todas as áreas do formulário.
+
+DESCER=Descer
+SUBIR=Subir
+VOLTAR=Voltar
+VOLTAR_PARA=Voltar para
+
+CONFIRMACAO_ENVIADA_SUCESSO=Confirmação enviada com sucesso, por favor, aguarde por novas informações!
+CONFIRMACAO_ENVIADA_FRACASSO=ERRO AO ENVIAR DADOS! Favor entrar em contato com nossa equipe de atendimento.
+
+#site.js
+CERTEZA_CONFIRMAR_PAGAMENTO=Tem certeza que deseja confirmar esse pagamento? Essa ação é irreversível!
+CERTEZA_CANCELAR_PAGAMENTO=Tem certeza que deseja cancelar esse pagamento? Essa ação é irreversível!
+CONFIRMACAO_PAGAMENTO_SUCESSO=Confirmação de pagamento feita com sucesso!
+CONFIRMACAO_CANCELAR_SUCESSO=Cancelamento de pagamento feita com sucesso!
+POR_FAVOR_AGUARDE=Por favor, aguarde...
+PREENCHA_LOGIN_OU_EMAIL=Por favor, preencha o seu login ou o e-mail cadastrado
+AGUARDE_ENVIANDO_SOLICITACAO=Por favor, aguarde... estamos enviando sua solicita&ccedil;&atilde;o...
+PAGAMENTO_INVALIDO=Pagamento recusado, por favor, verifique os seus dados!
+
+#Cadastro
+USUARIO_OU_SENHA_EM_BRANCO=Preencha o usu\u00E1rio e senha\! 
+USUARIO_OU_SENHA_INCORRETO=Login ou Senha incorreto!
+LOGIN_CHAR_ESPECIAL=O login não  deve conter caracteres especiais.
+SENHA_IGUAL_CONFIRMACAO=A senha deve ser igual a confirmação.
+SENHA_CHAR_ESPECIAL=Preencha a sua senha somente com letras e números, sem caracteres especiais.
+PREENCHA_TODOS_OS_CAMPOS=Preencha todos os campos em destaque!
+EMAIL_CADASTRADO=E-Mail já cadastrado!
+LOGIN_CADASTRADO=Login já cadastrado!
+SENHA_MASTER_NAO_CONFERE=Senha não  confere!
+CPF_JA_CADASTRADO=Esse CPF já encontra-se cadastrado!
+CPF_CADASTRO_INVALIDO=CPF Inválido!
+RG_CADASTRO_INVALIDO=RG Inválido!
+
+#Esqueci a Senha
+RECUPERAR_SENHA=Recuperar a senha
+PREENCHA_USUARIO_PARA_RECUPERAR_SENHA=Preencha o E-Mail para recuperar sua senha!
+AGUARDE_PREPARANDO_EMAIL=Aguarde... estamos preparando o e-mail...
+INFORME_NOVA_SENHA_CONFIRMACAO=Informe a nova senha e a confirmação!
+CONFIRMACAO_IGUAL_SENHA=A confirmação deve ser igual a senha!
+SENHA_ALTERADA_SUCESSO=Senha alterada com sucesso!
+
+#Dados Bancários
+NOME_DO_TITULAR=Nome do Titular
+BANCO=Banco
+CONTA=Conta
+AGENCIA=Agencia
+NUMERO_AGENCIA=Agência
+NUMERO_CONTA=Conta
+TIPO_CONTA=Tipo de Conta
+CONTA_CORRENTE=Conta Corrente
+CONTA_POUPANCA=Conta Poupanca
+SELECIONE=Selecione
+ERRO_PADRAO=Campo obrigatório
+ERRO_PADRAO2=Digite os campos obrigatórios
+DADOS_BANCARIOS_SUCESSO=Dados bancários alterados com sucesso!
+VARIACAO=Variação
+OPERACAO=Operação
+
+#Impostos
+NCM_ERRO=NCM já existe!
+CFESTATUAL=CF Estadual
+PERCENTUAL=Percentual
+
+#Dados Pessoais
+INFORME_NOME=Preencha o nome!
+INFORME_EMAIL=Não localizamos esse e-mail no cadastro!
+INFORME_TELEFONE=Informe o número do ddd e telefone!
+INFORME_CELULAR=Informe o número do ddd e celular!
+INFORME_DDD=Informe o ddd!
+INFORME_ENDERECO=Informe o endereço!
+INFORME_NUMERO=Informe o número!
+INFORME_RG=Informe o RG!
+INFORME_CEP=Informe o CEP!
+INFORME_BAIRRO=Informe o bairro!
+INFORME_MUNICIPIO=Informe o município!
+INFORME_ESTADO=Informe o estado!
+INFORME_SEXO=Informe o sexo!
+INFORME_ESTADO_CIVIL=Informe o estado civil!
+INFORME_DATA_NASCIMENTO=Informe a sua data de nascimento!
+CONCORDE_TERMOS=Concorde com os termos.
+CONCORDO_TERMOS=Concordo com os termos.
+EMAIL_EM_USO=O e-mail informado já está em uso!
+ALTERA_DADOS_PESSOAIS_SUCESSO=Dados pessoais alterados com sucesso!
+ALTERA_SUCESSO=Dados alterados com sucesso!
+INSERIDO_SUCESSO=Dados inseridos com sucesso!
+DELETA_SUCESSO=Dados excluído com sucesso!
+ESQUECI_SENHA_EMAIL=Enviamos uma mensagem para o e-mail cadastrado, verifique sua caixa para alterar a senha!
+
+#Meus Produtos > Estoque
+CODIGO=Código
+STATUS=Status
+ONDE=Onde
+POR=Por
+
+#Faturas
+PEDIDO=Pedido
+VALOR=Valor
+DESCRICAO_SERIVCO=Descrição do Serviço
+DESCRICAO=Descrição
+VENCIMENTO=Vencimento
+EM_ABERTO=Em aberto
+AGUARDANDO_PAGAMENTO=Aguardando Pagamento
+EM_ANALISE=Em Análise
+COMPLETO=Completo
+APROVADO=Aprovado
+CANCELADO=Cancelado
+
+#Historico
+DATA_INICIAL=Data Inicial
+DATA_FINAL=Data Final
+IR=Ir
+DATA=Data
+SALDO=Saldo
+SEM_REGISTROS_PERIODO=Não há registros para o período informado
+SEM_REGISTROS=Não há registros
+REGISTROS=registros
+
+#Saque
+MOEDA=R$
+PROXIMO_PASSO=Próximo passo
+CONFIRMACAO_DE_DADOS=Confirmação de Dados
+
+#Admin Usuario
+NOME_OU_LOGIN=Nome ou login do usuário
+INCLUSAO=Inclusão
+SEM_REGISTROS_PARA_FILTRO=Não há registros para o filtro informado
+ID=ID
+ALTERAR_DADOS_PESSOAIS=alterar dados pessoais, senha
+DADOS_FINANCEIROS_PAGAMENTOS=dados financeiros, pagamentos
+ATIVO =Ativo
+INATIVO=Inativo
+ATIVAR=Ativar
+INATIVAR=Inativar
+
+#Admin Suporte
+EXIBIR_TODOS=Exibir Todos
+EXIBIR_SOMENTE_CHAMADOS_RESPONDIDOS=Exibir somente os tickets respondidos
+EXIBIR_SOMENTE_CHAMADOS_NAO_RESPONDIDOS=Exibir somente os tickets não  respondidos
+DATA_ABERTURA=Data Abertura
+DATA_RESPOSTA=Data Resposta
+EMAIL=E-Mail
+EMAIL_STAL=E-Mail Allgenda
+MENSAGEM=Mensagem
+RESPOSTA=Resposta
+
+#Admin Suporte Responder
+RESPONDER_CHAMADO_TECNICO=Responder Ticket
+ENVIAR=Enviar
+RESPOSTA_ENVIADA_SUCESSO=Resposta enviada com sucesso!
+
+#Admin Usuario Dados
+FORM_LOGIN=Login
+NUMERO=Número
+RG=RG
+DATA_NASCIMENTO=Data de Nascimento
+DATA_PREVISTA=Data Prevista
+PREVISAO=Previsão
+TIPO=Tipo
+SEXO=Sexo
+ESTADO_CIVIL=Estado Civil
+PIS=Pis
+COMERCIAL=Comercial
+MASCULINO=Masculino
+FEMININO=Feminino
+SOLTEIRO=Solteiro(a)
+CASADO=Casado(a)
+DIVORCIADO=Divorciado(a)
+VIUVO=Viúvo(a)
+
+SSN=SSN
+SALARIO=Salário 
+TIPO_SALARIO=Tipo
+COMISSAO=Comissão
+BANCO_NOME=Nome Banco
+BANCO_ROUTING=Routing
+BANCO_ACCOUNT=Conta
+FIXO=Fixo
+HORA=Hora
+
+PAGO=Pago
+DIGITO=Dígito
+
+#Duvida
+DUVIDA_ENVIADA_SUCESSO=Dúvida enviada com sucesso, retornaremos em breve!
+MENSAGEM_ENVIADA=Mensagem Enviada com Sucesso!
+MENSAGEM_PROGRAMADA=Mensagem Programada com Sucesso!
+
+#Quem Somos
+QUEM_SOMOS=Quem Somos
+
+DIGITE_EMAIL_VALIDO=Digite um e-mail v\u00E1lido 
+
+#Upload 
+UPLOAD_DOCUMENTOS=Upload de Documentos
+CONFIRMACAO_DELETAR=Tem certeza que quer excluir?
+ARQUIVO_DELETAR_SUCESSO=Arquivo excluído com sucesso.
+ERRO_DELETAR_ARQUIVO=Erro ao excluir o arquivo.
+ARQUIVO_SUCESSO=Arquivo enviado com sucesso!
+ARQUIVO=Arquivo
+FOTO_PERFIL=Foto do Perfil
+FOTO_ASSINATURA=Assinatura do E-mail
+
+DIGITE_EMAIL_SENHA=Digite um e-mail ou o login cadastrado
+
+#BoxLogin
+PREZADO_USUARIO=Prezado usuário,
+DIFICULDADE_ENTRAR=caso tenha alguma dificuldade em entrar
+LOGIN_OU_ID=com seu login, por favor entre com seu ID
+
+LOGIN_DUPLICADO=Login já registrado por favor tente outro.
+INATIVAR_USUARIO=Inativar Usuário
+CERTEZA_INATIVAR=Tem certeza que deseja inativar o usuário?
+USUARIO_AGUARDANDO_CONFIRMACAO=Usuário aguardando confirmação, verifique o e-mail recebido no ato do cadastro!
+USUARIO_DESATIVADO=Usuário desativado.
+USUARIO_INATIVADO_COM_SUCESSO=Usuário inativado com sucesso
+INATIVADO_SISTEMA=Inativado pelo sistema
+LIBERAR_SISTEMA=Tem certeza que quer liberar o CPF do Usu\u00E1rio?\t
+
+INSERIR=Inserir
+
+BRASIL=Brasil
+ESTADOS_UNIDOS=Estados Unidos
+ESPANHA=Espanha
+RESUMO=Resumo
+COMENTARIO=Comentário
+EM_BREVE=Em Breve
+PRINCIPAIS_DESTAQUES=Principais Destaques 
+
+PRIMEIRA=Primeira
+ULTIMA=Ultima
+ANTERIOR=Anterior
+PROXIMA=Próxima
+TODOS_DIREITOS_RESERVADOS=Todos os direitos reservados
+DESENVOLVIDO_POR=Desenvolvido por
+AVALIACAO=Avaliação
+TOTAL_A_PAGAR=Total a pagar
+ALTERAR=Alterar
+MINHA_CONTA=Minha Conta
+CLIENTE=Cliente
+PAGAR=Pagar
+
+#status envio
+MEU_CADASTRO=Meu Cadastro
+VALIDAR_DADOS=Validar dados
+QUANTIDADE=Quantidade
+EDITAR=Editar
+TITULO=Titulo
+LOCAL=Local
+	
+PAGINA_EM_CONSTRUCAO=Página em construção!
+NAO_MEMBRO_CADASTRE_SE=Não é membro? Cadastre-se
+
+#Email_cadastro
+SEJA_MUITO_BEM_VINDO=Seja muito bem-vindo(a)!
+ATUALIZADO_SUCESSO=Atualizado com sucesso!
+ERRO=Ocorreu um erro por favor tente novamente.
+ERRO2=Ocorreu um erro, por favor verifique os campos e tente novamente.
+
+ADICIONAR=Adicionar
+CANCELAR=Cancelar
+REMOVER=Remover
+MINIATURA=Miniatura
+NOTICIAS=Noticia
+PAGAMENTO=Pagamento
+
+INSERIR_IMAGEM=Inserir Imagem
+VISUALIZAR_EMAIL=Visualizar e-mail
+DESTINATARIOS=Destinatários
+AMBOS=Ambos
+ENVIAR_EMAIL=Enviar Email
+URL_DA_IMAGEM=URL da imagem
+EMAIL_ENVIADO_COM_SUCESSO=Emails enviados com sucesso <br> #ERROS erros<br>
+
+PORTUGUES=Português
+INGLES=Inglês
+ESPANHOL=Espanhol
+ATUALIZAR=Atualizar
+
+HOJE=Hoje
+MENSAGENS_NOVAS=Mensagens Novas
+ENVIADA_POR=Enviada Por
+CRIAR_NOVA_MENSAGEM=Criar Nova Mensagem
+COMENTARIO_ENVIADO_SUCESSO=Enviado com sucesso.
+DATA_INICIO=Data Início
+DATA_TERMINO=Data Término
+OBSERVACOES=Observações
+
+#PAINEL
+PAINEL=Painel
+VER_CAIXA_DE_ENTRADA=Ver caixa de entrada
+VER_CAIXA_DE_SAIDA=Ver itens enviados
+DIRETOS=Diretos
+EDITAR_PERFIL=Editar Perfil
+NAVEGACAO=Navega&ccedil;&atilde;o
+MEU_SALDO=Meu Saldo
+CAIXA_DE_ENTRADA=Caixa de Entrada
+ITENS_ENVIADOS=Itens Enviados
+CRIAR_NOVO_CHAMADO=Criar Ticket
+CHAMADOS_EM_ABERTO=Tickets em Aberto
+CHAMADOS_FINALIZADOS=Tickets Finalizados
+SITE=Site
+PAINEL_INICIAL=Painel Inicial
+HOME=Home
+TICKETS_ABERTOS_PENDENTES=Tickets Abertos ou Pendentes
+NAO_EXISTE_CHAMADO=N&atilde;o Existem Tickets Abertos
+EVOLUCAO_GANHOS=Evolução de Ganhos
+POR_SEMANA=Por Semana
+
+#MENSAGENS
+VOCE_TEM_NOVAS_MENSAGENS=Você tem #QUANTIDADE_NOVAS_MENSAGENS novas mensagens!
+LISTA_TODAS_MENSAGENS_RECEBIDAS_ENVIADAS=Lista todas as mensagens recebidas e enviadas através do sistema
+DE=De
+ATE=Até
+PARA=Para
+LER=Ler
+SUAS_MENSAGENS=Suas mensagens\t
+RESULTADOS=Resultados
+ENVIADO_POR=Enviado Por
+DETALHES_MENSAGEM=Detalhes da mensagem
+REMETENTE=Remetente
+DESTINATARIO=Destinatário
+ASSUNTO_MENSAGEM=Assunto da Mensagem
+ASSUNTO=Assunto
+OQUE_DESEJA_FAZER=O que deseja fazer
+VOLTAR_PARA_CAIXA_ENTRADA=Voltar para Caixa de Entrada
+MARCAR_COMO_NAO_LIDA=Marcar como não  lida
+RESPONDER=Responder
+CONTEUDO=Conteúdo
+ENVIAR_MENSAGEM=Enviar Mensagem
+NOVA_MENSAGEM=Nova Mensagem
+LIMPAR=Limpar
+VOLTAR_TICKET_ABERTO=Voltar para Tickets Abertos
+VOLTAR_TICKET_FECHADO=Voltar para Tickets Fechados
+MARCAR_NAO_RESOLVIDA=Marcar como não  resolvida
+MARCAR_RESOLVIDA=Marcar como resolvida
+LIDAS=Lidas
+NAO_LIDAS=Não lidas
+CORREIO=Correio
+LEAD=Lead
+DISTANCIA=Distância
+MILHAS=milhas
+
+#PERFIL
+CONFIGURE_DADOS_PESSOAIS_E_FOTOS=Configure os seus dados pessoais e sua foto
+ACOES=Ações
+REMOVER_FOTO=Remover Foto
+
+#Tickets
+ESCREVA_ABAIXO_MENSAGEM_DESEJADA=Escreva abaixo a mensagem desejada
+LISTA_TODOS_CHAMADOS_TECNICOS=Lista todos os chamados técnicos registrados no sistema
+ABERTO=Aberto
+FECHADO=Fechado
+TICKETS=Tickets
+
+#Bancario
+CONFIGURE_SEUS_DADOS_BANCARIOS=Configure seus Dados Bancários
+EDITAR_DADOS_BANCARIOS=Editar Dados Bancários
+INFORMACOES=Informações
+AGUARDANDO_VALIDAÇÃO_PELO_SISTEMA=Aguardando Validação dos dados bancários pelo sistema
+
+EXTRATO=Extrato
+USUARIOS=Usuários
+PERFIL=Perfil 
+PERFIL_ACESSO=Perfil de Acesso
+P_INCLUIR=Incluir 
+P_ALTERAR=Alterar
+P_EXCLUIR=Excluir
+P_CONSULTAR=Consultar
+FUNCIONALIDADE=Funcionalidades
+PERFIL_NOVO=Criar novo perfil
+ABRIR=Abrir
+EXCLUIR=Excluir
+
+# PAGINACAO
+Primeira_Página=Primeira Página
+Última_Página=Última Página
+Próximo=Próximo
+Anterior=Anterior
+NAO_HA_DADOS=Não há dados para exibir
+Mostrando=Mostrando
+ao=ao
+de=de
+registros=registros 
+Processando=Processando
+filtrando=filtrando
+Mostrar=Mostrar
+IMPRIMIR=Imprimir
+VISUALIZAR=Visualizar
+
+#allgenda
+CRM_HINT=Digite qualquer informação sobre o cliente: nome, email, telefone ou endereço
+ALTERAR_USUARIO=Alterar Usuário
+ALTERAR_CLIENTE=Alterar Cliente
+AGENTE=Agente
+CORRETOR=Corretor
+IDIOMA=Idioma
+ORIGEM=Origem
+DESTINO=Destino
+PAIS=País
+DETALHES_CONTATO=Detalhes do Contato
+HISTORICO_CONTATO=Histórico de Contatos
+COMO_CONHECEU=Como Conheceu
+ATENDENTE=Atendente
+ENVIAR_LINK_PORTAL=Enviar Link Portal
+ENVIAR_DADOS=Enviar Link para Alterar Dados
+ENVIAR_TESTE=Enviar email de teste para si mesmo
+ITENS=Itens
+ARRASTE_SEUS_ITENS_AQUI=Arraste Seus Itens Aqui
+NOVO=Novo
+TIPO_SERVICO=Tipo de Serviço
+MODALIDADE=Modalidade
+SERVICOS_ADICIONAIS=Serviços Adicionais
+SERVICO=Serviço
+DEPTO=Depto.
+CUSTO=Custo
+DESCONTO=Desconto
+STAL=Allgenda
+LEX=LEX
+FINAL=Final
+COTACAO=Cotação
+FUNCIONARIOS=Funcionários
+FUNCIONARIO=Funcionário
+TIMESHEET=TimeSheet
+PERIODO=Período
+TIME_IN=Time In
+TIME_OUT=Time Out
+SEMANA=Semana
+
+ABERTA=Aberta
+RESPONDIDA=Respondida
+RESPONDIDA_AGUARDANDO=Aguardando cliente aprovar
+PRECO=Preço
+PRECO_FINAL=Preço Final
+VALOR_PAGO=Valor Pago
+TODOS=Todos
+CUBAGEM=Cubagem
+PESO=Peso
+AREA=Área
+LISTAR=Listar
+CANCELADA=Cancelada
+ACEITA=Aceita
+PROSPECT=Prospect
+TODAS=Todas
+ATIVA=Ativa
+RESPONSAVEL=Responsável
+DATA_EXECUCAO=Data Execução
+DATA_LIMITE=Data Limite
+ALTERAR_DADOS=Alterar Dados
+EM_PROCESSO=Em Processo
+FINALIZADA=Finalizada
+SALVAR_RASCUNHO=Salvar Rascunho
+SALVAR_FINAL=Salvar Versão Final
+RELACIONAMENTO=Relacionamento
+ADD=Adicionar
+DONT_MOVE=Não transportar 
+DontKnow=Eu não  sei meu usuário e senha
+AgendaTarefas=Agenda de Tarefas
+INFORMACOES_FINANCEIRAS=Informações Financeiras
+RECURSOS_HUMANOS=Recursos Humanos
+INFORMACOES_LOGIN=Informações de Login
+CONTATO_EMERGENCIA=Contato de Emergência
+TELEFONE_EMERGENCIA=Telefone de Emergência
+finalizadas_recentemente=finalizadas recentemente
+CALENDARIO_GERAL=Calendário geral
+MEU_CALENDARIO=Meu calendário
+DETALHES=Detalhes
+AdicionarCliente=Adicionar Cliente
+
+AguardandoResposta=Aguardando Resposta
+Funcionalidades=Funcionalidades
+
+AGUARDANDO=aguardando...
+SOLICITAR=solicitar
+
+CONTATO1=Digite aqui os detalhes desse contato para gravar no sistema
+CONTATO2=Cliente alterou dados cadastrais pelo portal.
+
+ATENCAO=Atenção
+CERTEZA2=Tem certeza que deseja CONFIRMAR?
+CERTEZA3=Tem certeza que deseja EXCLUIR esse registro?
+CERTEZA4=Tem certeza que deseja enviar para TODOS?
+CERTEZA5=Tem certeza que deseja CONFIRMAR e transformar essa cotação em uma OS?
+CERTEZA6=Verifique os campos obrigatórios em vermelho!
+CERTEZA7=Verifique se os valores, tipo e modalidade estão preenchidos!
+CERTEZA8=Verifique se os valores estão preenchidos e preencha todos os campos obrigatórios em vermelho!
+CERTEZA9=Preencha o histórico o motivo do cancelamento.
+CERTEZA10=Tem certeza que deseja CANCELAR essa cotação?
+CERTEZA12=Tem certeza que deseja ENVIAR?
+
+NAO_SOLICITADO=Não solicitado
+SOLICITADO_AGUARDANDO_RESPOSTA=Solicitado, aguardando resposta
+SOLICITADO_RESPONDIDO=Solicitado e respondido
+
+Cancelar=Cancelar
+Enviar=Enviar
+GerarOS=Gerar OS
+AbrirOS=Ir para OS
+
+SELECIONE_MODALIDADES=Selecione as modalidades que deseja cotar:
+RESPOSTA_DA_STAL=Resposta da tecnologia
+MENSAGEM_PARA_STAL=Mensagem para a tecnologia
+MENSAGEM_PARA_VENDEDOR=Mensagem para o vendedor
+MENSAGEM_DO_VENDEDOR=Mensagem recebida do vendedor
+EXPIRANDO_EM=expirando em
+EXPIRADO=expirado por
+REVALIDAR_STAL=Solicitar novo preço
+VALIDAR_STAL=Solicitar Preço
+PEDIR_DESCONTO=Pedir desconto para tecnologia
+DIAS=dias 
+CONTAINER=Container
+VALOR_AUTORIZADO_DESCONTO=Valor Autorizado Desconto
+MARKUP=Mark Up
+ENVIAR_ESSA_QUOTE=Enviar essa cotação para o cliente
+ENVIAR_ESSA_QUOTE_CERTEZA=Tem certeza que deseja ENVIAR essa cotação para o cliente? Ele receberá um email com os dados e valores propostos e, caso aceite, uma O.S. será aberta.
+
+ABERTURA=Abertura
+EMBALAGEM=Embalagem
+DATA_COLETA=Data Coleta
+DATA_ENTREGA=Data Entrega
+TAREFAS=Tarefas
+PAGAMENTOS=Pagamentos
+DOCUMENTOS=Documentos
+PESQUISA_QUALIDADE=Pesquisa de Qualidade
+DIGITE_CORRETO=Digite os valores corretamente
+OS_LABEL1=Valores <b>positivos</b> indicam pagamento do cliente. Valores <b>negativos</b> são reembolsos ao cliente.
+
+CARTAO_NUMERO=Número do Cartão
+CARTAO_EXPIRA=Data de Expiração
+CARTAO_NOME=Nome do Cartão
+CARTAO_SOBRENOME=Sobrenome do Cartão
+CARTAO_ENDERECO=Endereço de Cobrança
+CARTAO_CIDADE=Cidade
+CARTAO_ESTADO=Estado
+CARTAO_ZIP=CEP
+CARTAO_PAIS=País
+REFERENCIA=Referência
+
+SEUS_DOCUMENTOS=Veja os seus documentos
+EFETUE_PAGAMENTO=Pague online
+VISAO_CLIENTE=Acessar o portal com a visão do cliente (abrir em uma aba privada)
+SOMENTE=Somente
+BLANK=Em branco
+TEMPLATE=Modelo
+TEMPLATE1=Boas vindas
+CLIENTE_ATIVO=Cliente ativo
+CLIENTE_PASSADO=Cliente passado
+MAILING_EXTERNO=Mailing externo
+EMAILS_PONTO_VIRGULA=E-mails, separados por ";"
+
+FEEDBACK1=Deixe sua opinião abaixo sobre nosso serviço, se você gostou, sugestões ou se temos algo a melhorar - nós queremos ouvir de você!
+FEEDBACK2=Qual a probabilidade para que você possa recomendar nossa empresa para um amigo?
+FEEDBACK3=Como foi sua experiência conosco?
+FEEDBACK4=Excelente - Nota: 
+FEEDBACK5=Muito bom - Nota: 
+FEEDBACK6=Mais ou menos - Nota: 
+FEEDBACK7=Podia ser melhor - Nota: 
+FEEDBACK8=Muito ruim - Nota: 
+NOTA=Nota
+FEEDBACK_STATUS_-1=Rejeitado
+FEEDBACK_STATUS_0=Não revisado
+FEEDBACK_STATUS_1=Aprovado
+APROVAR=Aprovar
+REPROVAR=Rejeitar
+CERTEZA=Tem certeza que deseja
+EMAIL_AUTOMATICO=Um email automático será enviado para o cliente confirmando a operação.
+VISIVEL_CLIENTE=Visível para o cliente
+
+NAO_ASSINADO=Não assinado
+ASSINADO=Assinado
+VIEW_QUOTE=Veja Sua Cotação
+VIEW_DOC=Veja Seu Documento
+ADOTE_CLIENTE=Adote esse cliente sob sua responsabilidade
+REGISTRO=Registro
+OUTROS=Outros
+ENVIADO_EM=Enviado em
+ADICIONAR_ENDERECO=Informar novo endereço, e-mail ou telefone 
+ADICIONAR_DATA=Informar mais datas 
+CANCELAMENTO=Cancelamento
+
+ENVIADA_PELO_SITE=Enviada pelo site
+AGUARDANDO_ASSINAR_CONTRATO=Aguardando assinar o contrato
+CONTRATO_ASSINADO_GEROU_OS=Contrato assinado, OS gerada
+
+CANC0=Razões para o cancelamento
+CANC1=Selecione o motivo do cancelamento
+REASON=Razão 
+DETAIL=Detalhe
+REQUER_ASSINATURA=Requer assinatura
+ASSINATURA=Assinatura
+SIM=Sim
+NAO=Não
+NAO_NECESSARIA=Não Necessária
+NECESSARIA=Necessária
+DATA_ENVIO=Data de Envio
+HOA=Management association
+
+NAO_PAGO=Não Pago
+PAGO_PARCIAL=Pago Parcial
+PAGO_TOTAL=Pago Total
+ESTIMADO=Estimado
+REAL=Real
+VALOR_TOTAL=Valor Total
+VALOR_UNITARIO=Valor Unit.
+
+UNIDADE=Unidade
+ATUAL=Atual
+POOL=Pool
+DESLIGADO=Desligado
+LIGADO=Ligado
+DISPONIVEL=Disponível
+TRANSACAO=Transação
+AUTORIZACAO=Autorização
+SELECIONE_CLIENTE=Selecione o cliente abaixo
+SELECIONAR=selecionar
+
+ALERTA=Alerta
+DISPARO_EMAIL=Disparo de e-mail
+
+INFORME_ASSUNTO_MSG=Informe o assunto e a descrição do e-mail
+DATA_SOLICITACAO=Data de solicitação

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.tetrasoft.app.sender.SenderInterface"%>
+<%@page import="java.io.File"%>
+<%@page import="java.util.List"%>
+<%@page import="com.tetrasoft.data.cliente.TaskEntity"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="com.tetrasoft.data.finance.SalaReuniaoEntity"%>
+<%@page import="com.tetrasoft.data.usuario.LogEntity"%>
+
+<style>
+	
+	body > div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog-buttons.ui-draggable > div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix{
+		background-color: #71B8EE;
+	}
+	
+	html{
+		overflow-y: hidden;
+		position: fixed;
+		width: 100vw;
+	}	
+	
+	#header, #leftPanel, .topbar{
+		display: none;		
+	}
+	
+	.rightpanel{
+		margin-left: 0px!important;
+		background: #FFF;		
+	}
+	
+	body{
+		background: #FFF;
+	}
+	
+	.linha{
+		box-shadow: 1px 1px 5px #888888;
+	}
+	
+	.containerCabecalho{
+		background: rgb(222,222,225);
+		height: 15vh;
+		padding: 25px;
+		background: #FFF;
+	}	
+	
+	.containerCabecalho > h3{
+		font-size: 40px;
+		font-weight: bold;
+	}
+	
+	.containerCabecalho p{
+		margin: 0px;
+		font-size: 14px;
+	}
+	
+	.containerCabecalho img{
+		margin-top: -24px;		
+	}
+	
+	.containerPrincipal{
+		height: 55vh;		
+		margin-left:0px!important;
+	}
+	
+	.containerLeft{		
+		background: rgb(6,6,6);
+		width: 55%;	
+		float: left;
+		height: inherit;
+		color: #FFF;
+		box-sizing: border-box;	
+		padding: 30px;	
+		background: #2c3e50;
+	}
+	
+	.containerLeftHeader, .containerRighttHeader {
+		overflow: auto;
+		font-size: 20px;
+		height: 72px;
+	}
+	
+	.containerLeftConteudo, .containerRightConteudo{		
+		font-size: 35px;	
+		margin-top:75px;		
+	}
+	
+	.reuniaoDescricao2{
+		line-height: 16px;
+	}
+	
+	.containerRight{
+		background: rgb(94,94,94);
+		width: 45%;	
+		float: left;
+		height: inherit;
+		color: #FFF;
+		box-sizing: border-box;	
+		padding: 30px;  
+		background: #425262;
+	}
+	
+	.containerUltimoConteudo{
+		height: 20vh;
+		background: rgb(137,137,138);
+		overflow: auto;
+	}
+	
+	.reuniaoDescricao1{
+		
+		line-height: 45px;		
+		text-transform: capitalize;
+	}
+	
+	.listReuniao{
+		box-sizing:border-box;
+		float: left;
+		width: 20%;
+		padding: 30px;
+		font-size: 14px;
+		color: #FFF;
+		padding-right: 10px;
+	}
+	
+	.listReuniao p{
+		margin: 0px;
+		color: rgba(0,0,0,.7)
+	}	
+	.list1{
+		background: rgb(137,137,139);
+		height: inherit;
+	}
+	
+	.list2{
+		background: rgb(147,147,148);
+		height: inherit;
+	}
+	
+	.list3{
+		background: rgb(169,169,171);
+		height: inherit;
+	}
+	
+	.list4{
+		background: rgb(180,180,182);
+		height: inherit;
+	}
+	
+	.list5{
+		background: rgb(190,190,192);
+		height: inherit;
+	}
+	
+	.containerMain{
+		box-sizing:border-box;
+		margin: 20px;	
+		margin-top: 2px;
+		height: calc(100vh - 30px);	
+	}		
+	
+	.@media only screen 
+	and (min-device-width : 768px) 
+	and (max-device-width : 1024px) 
+	and (orientation : landscape) {
+	
+		.containerLeftConteudo, .containerRightConteudo{		
+			font-size: 30px;	
+			margin-top:75px;		
+		}	
+	}	
+	
+	
+	@media only screen 
+	and (max-device-width : 600px)  {
+	
+		html{
+			overflow: auto;
+		    position: static;	
+		    height: 120%;	    
+		}
+		
+		.reuniaoDescricao1{
+			margin: 0px!important;
+		}
+	
+		.containerMain{
+			margin: 0px!important;
+			height: 100%;
+		}
+		
+		.containerPrincipal{
+			height: 400px;
+		}
+	
+		.containerCabecalho > div:nth-child(1){		
+			width: 50%;
+			margin: 0px;
+			display: inline-block;
+		}
+		
+		.containerCabecalho > div:nth-child(2){		
+			width: 48%;
+    		margin-right: 0px;
+    		display: inline-block;
+    		position: relative;
+		}
+		
+		.containerCabecalho > div:nth-child(2) img{
+			position: absolute;
+		}
+		
+		.containerLeft, .containerRight{
+			display: block;
+			float: none;
+			height: 200px;
+			width: 100%;			
+		}
+		
+		.containerLeftConteudo, .containerRightConteudo{
+			font-size: 16px;
+			margin-top:0px;
+		
+		}
+		
+		.containerPrincipal{
+			height: 100%;			
+		}
+		
+		.containerUltimoConteudo{
+			height: 100%;
+		}
+		
+		.listReuniao{
+			width: 100%;
+			display: block;
+			float: none;
+			padding-top: 15px;
+		}
+		
+		.list1, .list2, .list3, .list4, .list5{
+			height: 120px;
+		}
+	}
+	
+</style>
+
+<%@ include file="logadoForce.jsp" %>
+<%@ include file="idioma.jsp" %>
+<%@ include file="methods.jsp" %>
+
+<%	
+	int idFunc = SalaReuniaoEntity.ID_FUNCAO;
+	if (usuarioLogado == null || usuarioLogado.semPermissaoAcesso(idFunc) ) { %> 
+		<script type="text/javascript">location.href = "painel.jsp";</script>
+<%	
+		return;
+	}
+
+	boolean master = false;
+	if( !usuarioLogado.semPermissaoAcesso(idFunc, "excluir") ) {
+		master = true;
+	}
+
+	try {
+		
+		List<TaskEntity> reuniaoAtual = null;
+		List<TaskEntity> proximasReunioes = null;
+		
+		new LogEntity( LogEntity.TIPO_SITE, usuarioLogado.getIdUsuario(), usuarioLogado.getTableName(), usuarioLogado.get_IDFieldName(), request.getRemoteAddr(), request.getLocalName(), 0l, "Sala de reunião: lista");
+		
+		SimpleDateFormat formatData2 = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat formatData = new SimpleDateFormat("HH:mm");
+		String idSalaReuniao = request.getParameter("id");
+		List<TaskEntity> listReunioes = new ArrayList<TaskEntity>();
+		SalaReuniaoEntity salaReuniao = new SalaReuniaoEntity();
+		TaskEntity task = new TaskEntity();
+		if(idSalaReuniao != null && !idSalaReuniao.equals("")){			
+			salaReuniao.getThis(" idSalaReuniao =" + idSalaReuniao);	
+			reuniaoAtual = task.get(" idSala=" + idSalaReuniao + " AND NOW() BETWEEN dataHoraPrazo AND dataHoraPrazoFinal ORDER BY dataHoraPrazo ASC LIMIT 1");
+			
+			if(reuniaoAtual.size() > 0)
+				proximasReunioes = task.get(" idSala=" + idSalaReuniao + " AND dataHoraPrazo > '" +  reuniaoAtual.get(0).getDataHoraPrazoFinal() + "' ORDER BY dataHoraPrazo ASC LIMIT 6");
+			else
+				proximasReunioes = task.get(" idSala=" + idSalaReuniao + " AND dataHoraPrazo >= NOW() ORDER BY dataHoraPrazo ASC LIMIT 6");
+				
+			if(reuniaoAtual.size() > 0)
+				listReunioes.add(reuniaoAtual.get(0));
+			else
+				listReunioes.add(null);
+			
+			if(proximasReunioes.size() > 0){
+				
+				for(TaskEntity ob : proximasReunioes){
+					listReunioes.add(ob);
+				}	
+				
+			}		
+		}		
+%>
+<div class="containerMain">	
+	<div class="row-fluid linha">		
+		<div class="span12 containerCabecalho" style="margin-left:0px">
+			<div class="span6">
+				<h3><%=salaReuniao.getNome()%></h3>
+				<p style="display:none" class="idSalaReuniao"><%=salaReuniao.getIdSalaReuniao()%></p>
+				<p>Reuni&otilde;es marcadas.</p>						
+			</div>	
+			<div class="span6">
+				<a href="painel.jsp">
+					<img src="images/logo/logo2.png" class="pull-right" width="200px" height="100px"/>
+				</a>				
+			</div>			
+		</div>
+		<div class="span12 containerPrincipal">
+			<div class="containerLeft">
+				<div class="containerLeftHeader">
+					<p class="pull-left">Reuni&atilde;o atual</p>					
+					<%if(listReunioes != null && listReunioes.size() > 0 && listReunioes.get(0) != null){%>
+						<div class="pull-right" style="overflow:auto">
+							<p><%= formatData2.format(listReunioes.get(0).getDataHoraPrazo())%></p>
+							<p><%= formatData.format(listReunioes.get(0).getDataHoraPrazo())%> - <%= formatData.format(listReunioes.get(0).getDataHoraPrazoFinal())%></p>
+						</div>																		
+					<%}else{%>
+						<div class="pull-right" style="overflow:auto">
+							<p></p>
+							<p></p>					
+						</div>
+					<%}%>								
+				</div>
+				<div class="containerLeftConteudo">
+					<%if(listReunioes != null && listReunioes.size() > 0 && listReunioes.get(0) != null){%>
+						<p class="reuniaoDescricao1"><%= listReunioes.get(0).getDescricao()%></p>												
+					<%}else{%>
+						<p class="reuniaoDescricao1">Nenhuma reuni&atilde;o marcada.</p>
+					<%}%>			
+				</div>
+			</div>
+			<div class="containerRight" style="margin-left:0px;">
+				<div class="containerRighttHeader">
+					<p class="pull-left">Pr&oacute;xima Reuni&atilde;o</p>					
+					<%if(listReunioes != null && listReunioes.size() > 1 && listReunioes.get(1) != null){%>
+						<div class="pull-right" style="overflow:auto">
+							<p><%= formatData2.format(listReunioes.get(1).getDataHoraPrazo())%></p>
+							<p><%= formatData.format(listReunioes.get(1).getDataHoraPrazo())%> - <%= formatData.format(listReunioes.get(1).getDataHoraPrazoFinal())%></p>
+						</div>																		
+					<%}else{%>
+						<div class="pull-right" style="overflow:auto">
+							<p></p>
+							<p></p>
+						</div>
+					<%}%>								
+				</div>
+				<div class="containerRightConteudo">
+					<%if(listReunioes != null && listReunioes.size() > 1 && listReunioes.get(1) != null){%>
+						<p class="reuniaoDescricao1"><%= listReunioes.get(1).getDescricao()%></p>												
+					<%}else{%>	
+						<p class="reuniaoDescricao1">Nenhuma reuni&atilde;o marcada.</p>
+					<%}%>				
+				</div>
+			</div>
+		</div>
+		<div class="span12 containerUltimoConteudo" style="margin-left:0px; overflow: auto;">			
+			<div class="listReuniao list1">
+				<%if(listReunioes != null && listReunioes.size() > 2 && listReunioes.get(2) != null){%>		
+					<p style="color:#000;"><%= formatData2.format(listReunioes.get(2).getDataHoraPrazo())%></p>		
+					<p style="color:#000;"><%= formatData.format(listReunioes.get(2).getDataHoraPrazo())%> - <%= formatData.format(listReunioes.get(2).getDataHoraPrazoFinal())%></p>												
+				<%}else{%>
+					<p style="color:#000;"></p>
+					<p style="color:#000;"></p>
+				<%}%>	
+				<%if(listReunioes != null && listReunioes.size() > 2 && listReunioes.get(2) != null){%>
+					<p><%= listReunioes.get(2).getDescricao()%></p>												
+				<%}else{%>
+					<p class="reuniaoDescricao2">Nenhuma reuni&atilde;o marcada.</p>
+				<%}%>
+			</div>
+			<div class="listReuniao list2">
+				<%if(listReunioes != null && listReunioes.size() > 3 && listReunioes.get(3) != null){%>
+					<p style="color:#000;"><%= formatData2.format(listReunioes.get(3).getDataHoraPrazo())%></p>
+					<p style="color:#000;"><%= formatData.format(listReunioes.get(3).getDataHoraPrazo())%> - <%= formatData.format(listReunioes.get(3).getDataHoraPrazoFinal())%></p>												
+				<%}else{%>
+					<p style="color:#000;"></p>
+					<p style="color:#000;"></p>
+				<%}%>	
+				<%if(listReunioes != null && listReunioes.size() > 3 && listReunioes.get(3) != null){%>
+					<p><%= listReunioes.get(3).getDescricao()%></p>												
+				<%}else{%>
+					<p class="reuniaoDescricao2">Nenhuma reuni&atilde;o marcada.</p>
+				<%}%>
+			
+			</div>
+			<div class="listReuniao list3">
+				<%if(listReunioes != null && listReunioes.size() > 4 && listReunioes.get(4) != null){%>
+					<p style="color:#000;"><%= formatData2.format(listReunioes.get(4).getDataHoraPrazo())%></p>
+					<p style="color:#000;"><%= formatData.format(listReunioes.get(4).getDataHoraPrazo())%> - <%= formatData.format(listReunioes.get(4).getDataHoraPrazoFinal())%></p>												
+				<%}else{%>
+					<p style="color:#000;"></p>
+					<p style="color:#000;"></p>
+				<%}%>	
+				<%if(listReunioes != null && listReunioes.size() > 4 && listReunioes.get(4) != null){%>
+					<p><%= listReunioes.get(4).getDescricao()%></p>												
+				<%}else{%>
+					<p class="reuniaoDescricao2">Nenhuma reuni&atilde;o marcada.</p>
+				<%}%>
+			</div>
+			<div class="listReuniao list4">
+				<%if(listReunioes != null && listReunioes.size() > 5 && listReunioes.get(5) != null){%>
+					<p style="color:#000;"><%= formatData2.format(listReunioes.get(5).getDataHoraPrazo())%></p>
+					<p style="color:#000;"><%= formatData.format(listReunioes.get(5).getDataHoraPrazo())%> - <%= formatData.format(listReunioes.get(5).getDataHoraPrazoFinal())%></p>												
+				<%}else{%>
+					<p style="color:#000;"></p>
+					<p style="color:#000;"></p>
+				<%}%>		
+				<%if(listReunioes != null && listReunioes.size() > 5 && listReunioes.get(5) != null){%>
+					<p><%= listReunioes.get(5).getDescricao()%></p>												
+				<%}else{%>
+					<p class="reuniaoDescricao2">Nenhuma reuni&atilde;o marcada.</p>
+				<%}%>
+			</div>
+			<div class="listReuniao list5">
+				<%if(listReunioes != null && listReunioes.size() > 6 && listReunioes.get(6) != null){%>
+					<p style="color:#000;"><%= formatData2.format(listReunioes.get(6).getDataHoraPrazo())%></p>
+					<p style="color:#000;"><%= formatData.format(listReunioes.get(6).getDataHoraPrazo())%> - <%= formatData.format(listReunioes.get(6).getDataHoraPrazoFinal())%></p>												
+				<%}else{%>
+					<p style="color:#000;"></p>
+					<p style="color:#000;"></p>
+				<%}%>		
+				<%if(listReunioes != null && listReunioes.size() > 6 && listReunioes.get(6) != null){%>
+					<p><%= listReunioes.get(6).getDescricao()%></p>												
+				<%}else{%>
+					<p class="reuniaoDescricao2">Nenhuma reuni&atilde;o marcada.</p>
+				<%}%>
+			</div>
+		</div>				
+	</div>	
+</div>
+<script>
+
+
+$(document).ready(function(){		
+	
+	function refreshReunioes(){		
+		$.ajax({
+			url : "eventosServlet",
+			type: "POST",
+			data: {idSalaReuniao : $(".idSalaReuniao").text()},
+			success: function(data){				
+				var objEventos = JSON.parse(data);
+				moment.locale('pt');
+				
+				if(objEventos){				
+					
+					$(objEventos).each(function(i,e){
+						
+						if(i == 0 && e != null){						
+							$(".containerLeftHeader").find("p:eq(1)").text(moment(e.dataHoraPrazo).format("DD/MM/YYYY"));
+							$(".containerLeftHeader").find("p:eq(2)").text(moment(e.dataHoraPrazo).format("HH:mm") + " - " + moment(e.dataHoraPrazoFinal).format("HH:mm"));
+							$(".containerLeftConteudo").find(".reuniaoDescricao1").text(e.descricao);
+						}
+						
+						if(i == 1 && e != null){						
+							$(".containerRighttHeader").find("p:eq(1)").text(moment(e.dataHoraPrazo).format("DD/MM/YYYY"));
+							$(".containerRighttHeader").find("p:eq(2)").text(moment(e.dataHoraPrazo).format("HH:mm") + " - " + moment(e.dataHoraPrazoFinal).format("HH:mm"));								
+							$(".containerRightConteudo").find(".reuniaoDescricao1").text(e.descricao);
+						}
+						
+						if(i == 2 && e != null){						
+							$(".list1").find("p:eq(0)").text(moment(e.dataHoraPrazo).format("DD/MM/YYYY"));
+							$(".list1").find("p:eq(1)").text(moment(e.dataHoraPrazo).format("HH:mm") + " - " + moment(e.dataHoraPrazoFinal).format("HH:mm"));
+							$(".list1").find("p:eq(2)").text(e.descricao);
+						}
+						
+						if(i == 3 && e != null){						
+							$(".list2").find("p:eq(0)").text(moment(e.dataHoraPrazo).format("DD/MM/YYYY"));
+							$(".list2").find("p:eq(1)").text(moment(e.dataHoraPrazo).format("HH:mm") + " - " + moment(e.dataHoraPrazoFinal).format("HH:mm"));
+							$(".list2").find("p:eq(2)").text(e.descricao);
+						}
+						
+						if(i == 4 && e != null){						
+							$(".list3").find("p:eq(0)").text(moment(e.dataHoraPrazo).format("DD/MM/YYYY"));
+							$(".list3").find("p:eq(1)").text(moment(e.dataHoraPrazo).format("HH:mm") + " - " + moment(e.dataHoraPrazoFinal).format("HH:mm"));
+							$(".list3").find("p:eq(2)").text(e.descricao);
+						}
+						
+						if(i == 5 && e != null){						
+							$(".list4").find("p:eq(0)").text(moment(e.dataHoraPrazo).format("DD/MM/YYYY"));
+							$(".list4").find("p:eq(1)").text(moment(e.dataHoraPrazo).format("HH:mm") + " - " + moment(e.dataHoraPrazoFinal).format("HH:mm"));
+							$(".list4").find("p:eq(2)").text(e.descricao);
+						}
+						
+						if(i == 6 && e != null){						
+							$(".list5").find("p:eq(0)").text(moment(e.dataHoraPrazo).format("DD/MM/YYYY"));
+							$(".list5").find("p:eq(1)").text(moment(e.dataHoraPrazo).format("HH:mm") + " - " + moment(e.dataHoraPrazoFinal).format("HH:mm"));
+							$(".list5").find("p:eq(2)").text(e.descricao);
+						}					
+					});				
+				}			
+			}
+		});
+	}	
+	
+	setInterval( function() {refreshReunioes()},30000);
+});
+
+</script>
+
+<%
+} catch( Exception e ) {
+	e.printStackTrace();
+} 
+%>
